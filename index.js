@@ -1,4 +1,7 @@
 const { migrate } = require("./migrate-sqlite-to-postgres");
+console.log("ENV DATABASE_URL existe?", !!process.env.DATABASE_URL);
+console.log("ENV DATABASE_URL começa com:", (process.env.DATABASE_URL || "").slice(0, 20));
+
 const { Client, GatewayIntentBits, Events, PermissionsBitField } = require('discord.js');
 const fs = require('fs');
 const path = require('path');
