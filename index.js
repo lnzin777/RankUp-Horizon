@@ -1,3 +1,4 @@
+const { migrate } = require("./migrate-sqlite-to-postgres");
 const { Client, GatewayIntentBits, Events, PermissionsBitField } = require('discord.js');
 const fs = require('fs');
 const path = require('path');
@@ -199,17 +200,16 @@ client.forceMeta = async (guild, alvo) => {
 };
 
 client.once(Events.ClientReady, async () => {
-  console.log(`✅ Online como ${client.user.tag}`);
-
-  // check inicial
   try {
-    const g = await client.guilds.fetch(GUILD_ID);
-    const guild = await g.fetch();
-    await checkAllMilestones(guild);
+    console.log("🔁 Tentando migrar SQLite → Postgres...");
+    await migrate();
   } catch (e) {
-    console.error("❌ Erro no check inicial:", e);
+    console.error("❌ Erro na migração:", e);
   }
+
+  console.log(`✅ Online como ${client.user.tag}`);
 });
+
 
 client.on(Events.GuildMemberAdd, async (member) => {
   try {
