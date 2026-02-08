@@ -1,0 +1,4 @@
+npm init -y
+npm install discord.js
+npm install dotenv
+npm i discord.js sqlite3
